@@ -1,244 +1,243 @@
+Here is the corrected code:
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Solid Waste Recycling Sorter</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <style>
-     html, body {
-        height: 100%;
-      }
-      .container {
-        min-height: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-      .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .form-check {
-        margin: 0 1rem;
-      }
-      .d-flex > *:not(:last-child) {
-        margin-right: 1rem;
-      }
-      /* Add a background color to the body */
-      body {
-        background-color: #f8f9fa;
-      }
-
-      /* Style the title */
-      h1 {
-        font-size: 2.5rem;
-        font-weight: bolder;
-        margin: 2rem 0;
-        text-align: center;
-        text-transform: uppercase;
-        color: #007bff;
-        letter-spacing: 0.1em;
-        text-shadow: 2px 2px #fff;
-        }
-       h1:hover{
-        color:#06274a;
-        font-size: 2.7rem;
-       }
-       footer{
-        margin-top: 20pt;
-       }
-
-      /* Center the image container */
-      #image-container {
-        text-align: center;
-      }
-      #image-container img {
-        max-width: 400px;
-        max-height: 400px; /* change this to your preferred height */
-        border: 1px solid #ccc; /* add a border */
-        border-radius: 5px; /* add a border-radius */
-      }
-
-      /* Style the class labels */
-      #label-container div {
-        font-size: 1.2rem;
-        margin-top: 1rem;
-      }
-
-      /* Style the file input */
-      #fileInput {
-        padding: 0.5rem 1rem;
-        background-color: #fff;
-        border: 2px solid #343a40;
-        border-radius: 0.25rem;
-        color: #343a40;
-        cursor: pointer;
-      }
-
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="text-center">Solid Waste Recycling Sorter</h1>
-
-      <div class="row mb-3 justify-content-center">
-        <div class="col-auto">
-          <button type="button" class="btn btn-primary" onclick="init()">Start</button>
-          <button type="button" class="btn btn-secondary ml-1" onclick="reset()">Clear</button>
-        </div>
+<head>
+  <title>Solid Waste Recycling Sorter</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <style>
+    html, body {
+      height: 100%;
+    }
+    .container {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .form-check {
+      margin: 0 1rem;
+    }
+    .d-flex > *:not(:last-child) {
+      margin-right: 1rem;
+    }
+    /* Add a background color to the body */
+    body {
+      background-color: #f8f9fa;
+    }
+    /* Style the title */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: bolder;
+      margin: 2rem 0;
+      text-align: center;
+      text-transform: uppercase;
+      color: #007bff;
+      letter-spacing: 0.1em;
+      text-shadow: 2px 2px #fff;
+    }
+    h1:hover{
+      color:#06274a;
+      font-size: 2.7rem;
+    }
+    footer{
+      margin-top: 20pt;
+    }
+    /* Center the image container */
+    #image-container {
+      text-align: center;
+    }
+    #image-container img {
+      max-width: 400px;
+      max-height: 400px; /* change this to your preferred height */
+      border: 1px solid #ccc; /* add a border */
+      border-radius: 5px; /* add a border-radius */
+    }
+    /* Style the class labels */
+    #label-container div {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    /* Style the file input */
+    #fileInput {
+      padding: 0.5rem 1rem;
+      background-color: #fff;
+      border: 2px solid #343a40;
+      border-radius: 0.25rem;
+      color: #343a40;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Solid Waste Recycling Sorter</h1>
+    <div class="row mb-3 justify-content-center">
+      <div class="col-auto">
+        <button type="button" class="btn btn-primary" onclick="init()">Start</button>
+        <button type="button" class="btn btn-secondary ml-1" onclick="reset()">Clear</button>
       </div>
-
-      <div class="row mb-3 justify-content-center">
-        <div class="col-auto">
-          <div class="form-check">
-            <input type="radio" class="form-check-input" id="webcam" name="imageSource" value="webcam" checked>
-            <label for="webcam" class="form-check-label">Webcam</label>   
-          </div>
-
-          <div class="form-check">
-            <input type="radio" class="form-check-input" id="file" name="imageSource" value="file">
-            <label for="file" class="form-check-label">File</label>
-          </div>
-        </div>
-        <div class="col-auto">
-          <div class="my-3 text-center">
-            <input type="file" id="fileInput" style="display:none;">
-          </div>
-        </div>
+    </div>
+    <div class="row mb-3 justify-content-center">
+      <div class="col-auto">
+        <div class="form-check">
+          <input type="radio" class="form-check-input" id="webcam" name="imageSource" value="webcam" checked>
+          <label for="webcam" class="form-check-label">Camera</label>
       </div>
-
-      <div class="row justify-content-center my-3">
-        <div class="col-auto">
-          <div id="image-container"></div>
-        </div>
+      <div class="form-check">
+          <input type="radio" class="form-check-input" id="backcam" name="imageSource" value="backcam">
+          <label for="backcam" class="form-check-label">Back Camera</label>
       </div>
-
-      <div class="row justify-content-center">
-        <div class="col-auto">
-          <div id="label-container"></div>
+      <div class="form-check">
+          <input type="radio" class="form-check-input" id="file" name="imageSource" value="file">
+          <label for="file" class="form-check-label">File</label>
+      </div>
+      </div>
+      <div class="col-auto">
+        <div class="my-3 text-center">
+          <input type="file" id="fileInput" style="display:none;">
         </div>
       </div>
     </div>
+    <div class="row justify-content-center my-3">
+      <div class="col-auto">
+        <div id="image-container"></div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <div id="label-container"></div>
+      </div>
+    </div>
+  </div>
+  <footer class="margin-top-auto bg-dark text-white py-3">
+    <div class="container text-center">
+      <p>&copy; 2024 Solid Waste Recycling Sorter</p>
+      <p>Developed by: Balyamin, Ferrater, Laluna, Masuara, Tedor, Visiete</p>
+      <p>BSIT-3: AI MSU GENSAN</p>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+  <script type="text/javascript">
+    // the link to your model provided by Teachable Machine export panel
+    const URL = "https://teachablemachine.withgoogle.com/models/o2sXRpv64/";
 
-    <footer class="margin-top-auto bg-dark text-white py-3">
-        <div class="container text-center">
-          <p>&copy; 2024 Solid Waste Recycling Sorter</p>
-          <p>Developed by: Balyamin, Ferrater, Laluna, Masuara, Tedor, Visiete</p>
-          <p>BSIT-3: AI MSU GENSAN</p>
-        </div>
-      </footer>
+    let model, imageSource, imageContainer, labelContainer, maxPredictions;
 
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
-    <script type="text/javascript">
-      // the link to your model provided by Teachable Machine export panel
-      const URL = "https://teachablemachine.withgoogle.com/models/o2sXRpv64/";
+    async function init() {
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
 
-      let model, imageSource, imageContainer, labelContainer, maxPredictions;
-
-      // Load the image model and setup the image source
-      async function init() {
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
-
-        // choose image source
-        if (document.getElementById('webcam').checked) {
-          imageSource = new tmImage.Webcam(400, 400, true); // width, height, flip
-          await imageSource.setup(); // request access to the webcam
-          await imageSource.play();
-        } else if (document.getElementById('file').checked) {
-          imageSource = document.createElement('img');
-          const fileInput = document.getElementById('fileInput');
-          fileInput.addEventListener('change', (event) => {
+    // choose image source
+    if (document.getElementById('webcam').checked) {
+        imageSource = new tmImage.Webcam(400, 400, true); // width, height, flip
+        await imageSource.setup(); // request access to the webcam
+        await imageSource.play();
+    } else if (document.getElementById('file').checked) {
+        imageSource = document.createElement('img');
+        const fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = (event) => {
-              imageSource.src = event.target.result;
+                imageSource.src = event.target.result;
             }
-          });
-          fileInput.click();
-        }
+        });
+        fileInput.click();
+    } else if (document.getElementById('backcam').checked) { // new code for back camera
+        // get user media device camera with back facing preference
+        const backCameras = await navigator.mediaDevices.enumerateDevices()
+            .then(devices => devices.filter(device => device.kind === 'videoinput' && device.facingMode === 'environment'));
 
-        // load the model and metadata
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
-
-        // append elements to the DOM
-        imageContainer = document.getElementById("image-container");
-        imageContainer.appendChild(imageSource.canvas || imageSource); // canvas or img element
-        labelContainer = document.getElementById("label-container");
-        for (let i = 0; i < maxPredictions; i++) { // and class labels
-          labelContainer.appendChild(document.createElement("div"));
-        }
-
-        // start loop
-        window.requestAnimationFrame(loop);
-      }
-
-      async function loop() {
-        if (document.getElementById('webcam').checked) {
-          imageSource.update(); // update the webcam frame
-        }
-        await predict();
-        window.requestAnimationFrame(loop);
-      }
-
-// run the image source through the image model
-async function predict() {
-  // predict can take in an image, video, or canvas html element
-  const prediction = await model.predict(imageSource.canvas || imageSource);
-
-  let highestPredictionIndex = 0;
-  let highestPredictionValue = 0;
-
-  for (let i = 0; i < maxPredictions; i++) {
-    const classPrediction =
-      prediction[i].className + ": " + Math.round(prediction[i].probability * 100) + "%";
-    const labelContainerChild = labelContainer.childNodes[i];
-    labelContainerChild.innerHTML = classPrediction;
-
-    // set unique color for each label
-    const hue = (i * (360 / maxPredictions)) % 360;
-    labelContainerChild.style.color = `hsl(${hue}, 80%, 50%)`;
-    labelContainerChild.style.backgroundColor = `hsla(${hue}, 50%, 50%, ${prediction[i].probability})`;
-
-    // find the highest prediction
-    if (prediction[i].probability > highestPredictionValue) {
-      highestPredictionIndex = i;
-      highestPredictionValue = prediction[i].probability;
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: backCameras[0].deviceId } } });
+        imageSource = new tmImage.Webcam(400, 400, true);
+        imageSource.setupStream(stream);
     }
-  }
 
-  // highlight the label with the highest prediction
-  const highestPredictionLabel = labelContainer.childNodes[highestPredictionIndex];
-  highestPredictionLabel.style.fontWeight = "bold";
-  highestPredictionLabel.style.color = "#ffffff"; // set font color to white
-  highestPredictionLabel.style.backgroundColor = "#000000"; // set background color to black
+    // load the model and metadata
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
 
-  // reset other labels to default style
-  for (let i = 0; i < maxPredictions; i++) {
-    const labelContainerChild = labelContainer.childNodes[i];
-    if (labelContainerChild !== highestPredictionLabel) {
-      labelContainerChild.style.backgroundColor = `hsla(${(i * (360 / maxPredictions)) % 360}, 50%, 50%, 1)`;
-      labelContainerChild.style.color = "#000000"; // set font color to black
-      labelContainerChild.style.fontWeight = "";
+    // append elements to the DOM
+    imageContainer = document.getElementById("image-container");
+    imageContainer.appendChild(imageSource.canvas || imageSource); // canvas or img element
+    labelContainer = document.getElementById("label-container");
+    for (let i = 0; i < maxPredictions; i++) { // and class labels
+        labelContainer.appendChild(document.createElement("div"));
     }
-  }
+
+    // start loop
+    window.requestAnimationFrame(loop);
 }
-      function reset() {
-        // stop the image source if it's a webcam
-        if (imageSource instanceof tmImage.Webcam) {
-          imageSource.stop();
-        }
 
-        // clear the image and label containers
-        imageContainer.innerHTML = "";
-        labelContainer.innerHTML = "";
-
-        // uncheck the radio buttons
-        document.getElementById("webcam").checked = true;
-        document.getElementById("file").checked = false;
+    async function loop() {
+      if (document.getElementById('webcam').checked || document.getElementById('backcam').checked) { // changed to include backcam
+        imageSource.update(); // update the webcam frame
       }
-    </script>
-  </body>
+      await predict();
+      window.requestAnimationFrame(loop);
+    }
+
+    // run the image source through the image model
+    async function predict() {
+      // predict can take in an image, video, or canvas html element
+      const prediction = await model.predict(imageSource.canvas || imageSource);
+
+      let highestPredictionIndex = 0;
+      let highestPredictionValue = 0;
+
+      for (let i = 0; i < maxPredictions; i++) {
+        const classPrediction =
+          prediction[i].className + ": " + Math.round(prediction[i].probability * 100) + "%";
+        const labelContainerChild = labelContainer.childNodes[i];
+        labelContainerChild.innerHTML = classPrediction;
+
+        // set unique color for each label
+        const hue = (i * (360 / maxPredictions)) % 360;
+        labelContainerChild.style.color = `hsl(${hue}, 80%, 50%)`;
+        labelContainerChild.style.backgroundColor = `hsla(${hue}, 50%, 50%, ${prediction[i].probability})`;
+
+        // find the highest prediction
+        if (prediction[i].probability > highestPredictionValue) {
+          highestPredictionIndex = i;
+          highestPredictionValue = prediction[i].probability;
+        }
+      }
+
+      // highlight the label with the highest prediction
+      const highestPredictionLabel = labelContainer.childNodes[highestPredictionIndex];
+      highestPredictionLabel.style.fontWeight = "bold";
+      highestPredictionLabel.style.color = "#ffffff"; // set font color to white
+      highestPredictionLabel.style.backgroundColor = "#000000"; // set background color to black
+
+      // reset other labels to default style
+      for (let i = 0; i < maxPredictions; i++) {
+        const labelContainerChild = labelContainer.childNodes[i];
+        if (labelContainerChild !== highestPredictionLabel) {
+          labelContainerChild.style.backgroundColor = `hsla(${(i * (360 / maxPredictions)) % 360}, 50%, 50%, 1)`;
+          labelContainerChild.style.color = "#000000"; // set font color to black
+          labelContainerChild.style.fontWeight = "";
+        }
+      }
+    }
+
+    function reset() {
+      // stop the image source if it's a webcam or backcam
+      if (imageSource instanceof tmImage.Webcam) {
+        imageSource.stop();
+      }
+
+      // clear the image and label containers
+      imageContainer.innerHTML = "";
+      labelContainer.innerHTML = "";
+
+      // uncheck the radio buttons
+      document.getElementById("webcam").checked = true;
+      document.getElementById("file").checked = false;
+      document.getElementById("backcam").checked = false; // added to uncheck backcam
+    }
+  </script>
+</body>
 </html>
