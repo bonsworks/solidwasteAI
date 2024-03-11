@@ -80,16 +80,12 @@
       <div class="col-auto">
         <div class="form-check">
           <input type="radio" class="form-check-input" id="webcam" name="imageSource" value="webcam" checked>
-          <label for="webcam" class="form-check-label">Camera</label>
-      </div>
-      <div class="form-check">
-          <input type="radio" class="form-check-input" id="backcam" name="imageSource" value="backcam">
-          <label for="backcam" class="form-check-label">Back Camera</label>
-      </div>
-      <div class="form-check">
+          <label for="webcam" class="form-check-label">Camera</label>   
+        </div>
+        <div class="form-check">
           <input type="radio" class="form-check-input" id="file" name="imageSource" value="file">
           <label for="file" class="form-check-label">File</label>
-      </div>
+        </div>
       </div>
       <div class="col-auto">
         <div class="my-3 text-center">
@@ -123,55 +119,48 @@
 
     let model, imageSource, imageContainer, labelContainer, maxPredictions;
 
+    // Load the image model and setup the image source
     async function init() {
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
+      const modelURL = URL + "model.json";
+      const metadataURL = URL + "metadata.json";
 
-    // choose image source
-    if (document.getElementById('webcam').checked) {
+      // choose image source
+      if (document.getElementById('webcam').checked) {
         imageSource = new tmImage.Webcam(400, 400, true); // width, height, flip
         await imageSource.setup(); // request access to the webcam
         await imageSource.play();
-    } else if (document.getElementById('file').checked) {
+      } else if (document.getElementById('file').checked) {
         imageSource = document.createElement('img');
         const fileInput = document.getElementById('fileInput');
         fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = (event) => {
-                imageSource.src = event.target.result;
-            }
+          const file = event.target.files[0];
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onloadend = (event) => {
+            imageSource.src = event.target.result;
+          }
         });
         fileInput.click();
-    } else if (document.getElementById('backcam').checked) { // new code for back camera
-        // get user media device camera with back facing preference
-        const backCameras = await navigator.mediaDevices.enumerateDevices()
-            .then(devices => devices.filter(device => device.kind === 'videoinput' && device.facingMode === 'environment'));
+      }
 
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: backCameras[0].deviceId } } });
-        imageSource = new tmImage.Webcam(400, 400, true);
-        imageSource.setupStream(stream);
-    }
+      // load the model and metadata
+      model = await tmImage.load(modelURL, metadataURL);
+      maxPredictions = model.getTotalClasses();
 
-    // load the model and metadata
-    model = await tmImage.load(modelURL, metadataURL);
-    maxPredictions = model.getTotalClasses();
-
-    // append elements to the DOM
-    imageContainer = document.getElementById("image-container");
-    imageContainer.appendChild(imageSource.canvas || imageSource); // canvas or img element
-    labelContainer = document.getElementById("label-container");
-    for (let i = 0; i < maxPredictions; i++) { // and class labels
+      // append elements to the DOM
+      imageContainer = document.getElementById("image-container");
+      imageContainer.appendChild(imageSource.canvas || imageSource); // canvas or img element
+      labelContainer = document.getElementById("label-container");
+      for (let i = 0; i < maxPredictions; i++) { // and class labels
         labelContainer.appendChild(document.createElement("div"));
-    }
+      }
 
-    // start loop
-    window.requestAnimationFrame(loop);
-}
+      // start loop
+      window.requestAnimationFrame(loop);
+    }
 
     async function loop() {
-      if (document.getElementById('webcam').checked || document.getElementById('backcam').checked) { // changed to include backcam
+      if (document.getElementById('webcam').checked) {
         imageSource.update(); // update the webcam frame
       }
       await predict();
@@ -222,7 +211,7 @@
     }
 
     function reset() {
-      // stop the image source if it's a webcam or backcam
+      // stop the image source if it's a webcam
       if (imageSource instanceof tmImage.Webcam) {
         imageSource.stop();
       }
@@ -234,7 +223,6 @@
       // uncheck the radio buttons
       document.getElementById("webcam").checked = true;
       document.getElementById("file").checked = false;
-      document.getElementById("backcam").checked = false; // added to uncheck backcam
     }
   </script>
 </body>
